@@ -2,6 +2,7 @@ module FileOperations where
 
 import Prelude
 
+import Data.Foldable (foldl)
 import Data.Int (rem, quot)
 import Data.Path (Path, ls)
 import Data.Array (concatMap, cons, filter, head, length, tail, (:), (..))
@@ -89,3 +90,17 @@ factorizations n = factorizations' 2 n []
     if remainder == 0 then
       factorizations' (divisor) (quot dividend divisor) (cons divisor result)
       else factorizations' (divisor + 1) dividend result
+
+allTrue :: Array Boolean -> Boolean
+allTrue bools = foldl (\acc bool -> acc && bool) true bools 
+
+-- ! > mystery [false, true, true, true, true, true, true]
+-- ! > true
+-- ! > 
+-- ! > mystery [true, false, true, true, true, true, true]
+-- ! > true
+-- ! > 
+-- ! > mystery [true, false, true, true, true, true, true, false]
+-- ! > false
+exclusiveOrThenTrue :: Array Boolean -> Boolean
+exclusiveOrThenTrue bools = foldl (==) false bools
