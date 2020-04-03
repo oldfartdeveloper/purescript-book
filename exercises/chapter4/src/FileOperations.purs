@@ -77,7 +77,7 @@ factor n = do
   guard $ i * j == n
   pure j
 
---| Provide the prime numbers that, multiplied together, make the argument.
+-- | Provide the prime numbers that, multiplied together, make the argument.
 factorizations :: Int -> Array Int
 factorizations n = factorizations' 2 n []
  where
@@ -94,13 +94,33 @@ factorizations n = factorizations' 2 n []
 allTrue :: Array Boolean -> Boolean
 allTrue bools = foldl (\acc bool -> acc && bool) true bools 
 
--- ! > mystery [false, true, true, true, true, true, true]
--- ! > true
--- ! > 
--- ! > mystery [true, false, true, true, true, true, true]
--- ! > true
--- ! > 
--- ! > mystery [true, false, true, true, true, true, true, false]
--- ! > false
+-- | > mystery [false, true, true, true, true, true, true]
+-- | > true
+-- | > 
+-- | > mystery [true, false, true, true, true, true, true]
+-- | > true
+-- | > 
+-- | > mystery [true, false, true, true, true, true, true, false]
+-- | > false
 exclusiveOrThenTrue :: Array Boolean -> Boolean
 exclusiveOrThenTrue bools = foldl (==) false bools
+
+--| From the book:
+fib :: Int -> Int
+fib 0 = 1
+fib 1 = 1
+fib n = fib (n - 1) + fib (n - 2)
+
+-- | The fib routine in tail recursive form
+fib' :: Int -> Int
+fib' n = fib'' n 0 0 1 
+  where
+    fib'' :: Int -> Int -> Int -> Int -> Int
+    fib'' limit count n1 n2 =
+      if limit == count then
+        n1 + n2
+      else
+        fib'' limit (count + 1) (n1 + n2) n1
+
+reverse' :: ∀ a. Array a -> Array a
+reverse' = foldl (\xs x -> [x] <> xs) []
