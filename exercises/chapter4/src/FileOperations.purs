@@ -4,11 +4,11 @@ import Prelude
 
 import Data.Foldable (foldl)
 import Data.Int (rem, quot)
-import Data.Ord (min)
+-- import Data.Ord (min)
 -- import Data.Pair (Pair(..), fst, snd, (~))
-import Data.Path (Path, isDirectory, ls)
+import Data.Path (Path(), isDirectory, ls, size)
 import Data.Array (concatMap, cons, filter, head, length, tail, (:), (..))
-import Data.Maybe (fromMaybe, maybe)
+import Data.Maybe (Maybe(..), fromMaybe, maybe)
 import Data.Tuple (Tuple(..))
 import Control.MonadZero (guard)
 
@@ -161,4 +161,15 @@ maxSigned32BitInt = 2147483647
           
 smallestSize :: Path -> Int
 smallestSize p =
-  foldl (\acc p' -> min acc (fromMaybe acc p'.size)) maxSigned32BitInt (onlyFiles p) 
+  foldl (\acc p' -> min acc (case size p' of
+                              Just n -> n
+                              Nothing -> acc
+                            )
+        ) maxSigned32BitInt (onlyFiles p) 
+
+allSizes :: Array Path -> Array Int
+allSizes paths =
+  map (\p -> case size p of
+                Just n -> n
+                Nothing -> -1
+      ) paths
