@@ -4,7 +4,9 @@ import Prelude
 
 import Data.Foldable (foldl)
 import Data.Int (rem, quot)
-import Data.Path (Path, ls)
+import Data.Ord (min)
+-- import Data.Pair (Pair(..), fst, snd, (~))
+import Data.Path (Path, isDirectory, ls)
 import Data.Array (concatMap, cons, filter, head, length, tail, (:), (..))
 import Data.Maybe (fromMaybe, maybe)
 import Data.Tuple (Tuple(..))
@@ -124,3 +126,39 @@ fib' n = fib'' n 0 0 1
 
 reverse' :: ∀ a. Array a -> Array a
 reverse' = foldl (\xs x -> [x] <> xs) []
+
+-- Section for : A Virtual Filesystem exercise
+
+onlyFiles :: Path -> Array Path
+onlyFiles p =
+  filter (\p' -> not $ isDirectory p') $ allFiles p
+
+maxSigned32BitInt :: Int
+maxSigned32BitInt = 2147483647
+
+-- largestSmallestIn :: Path -> Pair Path Path
+-- largestSmallestIn p = lsi (onlyFiles p) (Pair maxSigned32BitInt -1)
+--   where
+--     lsi :: Array Path -> Pair Path Path -> Pair Path Path
+--     lsi paths pair =
+--       foldl (\p' pair' -> (fst pair') `min` p'.size ~ (snd pair') `max` p'.size) pair paths
+                  
+-- largestSmallestIn :: Path -> Pair Path Path
+-- largestSmallestIn p = lsi (onlyFiles p) (Pair maxSigned32BitInt -1)
+--   where
+--     lsi :: Array Path -> Pair Tuple(Path, Int) ~ Tuple(Path, Int) -> Pair (Int ~ Int) -> Pair Path Path
+--     lsi paths ((lPath, lSize) ~ (rPath, rSize)) (existingMin ~ existingMax) =
+--       let
+--         sizeCompare :: Boolean -> Int -> Path -> Int -> Path -> Tuple Int Path 
+--         sizeCompare isWantSmaller existingSize existingPath compareSize comparePath =
+--         if isWantSmaller && existingSize > compareSize then
+--           Tuple compareSize comparePath
+--         else if existingSize < compareSize then
+--           Tuple compareSize comparePath
+--         else existingSize existingPath
+--       in
+--         foldl (\p' pair' -> sizeCompare false fst $ snd pair pair paths
+          
+smallestSize :: Path -> Int
+smallestSize p =
+  foldl (\acc p' -> min acc (fromMaybe acc p'.size)) maxSigned32BitInt (onlyFiles p) 
