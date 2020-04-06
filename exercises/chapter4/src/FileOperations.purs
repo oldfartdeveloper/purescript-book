@@ -6,7 +6,7 @@ import Data.Foldable (foldl)
 import Data.Int (rem, quot)
 -- import Data.Ord (min)
 -- import Data.Pair (Pair(..), fst, snd, (~))
-import Data.Path (Path(), isDirectory, ls, size)
+import Data.Path (Path(), filename, isDirectory, ls, size)
 import Data.Array (concatMap, cons, filter, head, length, tail, (:), (..))
 import Data.Maybe (Maybe(..), fromMaybe, maybe)
 import Data.Tuple (Tuple(..))
@@ -167,9 +167,9 @@ smallestSize p =
                             )
         ) maxSigned32BitInt (onlyFiles p) 
 
-allSizes :: Array Path -> Array Int
+allSizes :: Array Path -> Array (Tuple String Int)
 allSizes paths =
   map (\p -> case size p of
-                Just n -> n
-                Nothing -> -1
+                Just n -> Tuple (filename p) n
+                Nothing -> Tuple "directory" 0
       ) paths
