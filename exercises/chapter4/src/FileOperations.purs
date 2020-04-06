@@ -9,7 +9,7 @@ import Data.Int (rem, quot)
 import Data.Path (Path(), filename, isDirectory, ls, size)
 import Data.Array (concatMap, cons, filter, head, length, tail, (:), (..))
 import Data.Maybe (Maybe(..), fromMaybe, maybe)
-import Data.Tuple (Tuple(..))
+import Data.Tuple (Tuple(..), snd)
 import Control.MonadZero (guard)
 
 allFiles :: Path -> Array Path
@@ -159,17 +159,22 @@ maxSigned32BitInt = 2147483647
 --       in
 --         foldl (\p' pair' -> sizeCompare false fst $ snd pair pair paths
           
-smallestSize :: Path -> Int
-smallestSize p =
-  foldl (\acc p' -> min acc (case size p' of
-                              Just n -> n
-                              Nothing -> acc
-                            )
-        ) maxSigned32BitInt (onlyFiles p) 
+largestSmallest :: Path -> Array (Tuple String Int)
+largestSmallest path =
+  [outlier (\i j -> i > j) 0 path, outlier (\i j -> i < j) maxSigned32BitInt path]
+
+outlier :: (Int -> Int -> Boolean) -> Int -> Path -> Tuple String Int
+outlier criteria startValue p =
+  foldl (\acc p' -> (case size p' of
+                                    Just n -> 
+                                      if criteria n $ snd acc then Tuple (filename p') n else acc
+                                    Nothing -> acc
+                    )
+        ) (Tuple "" startValue) (allFiles p) 
 
 allSizes :: Array Path -> Array (Tuple String Int)
 allSizes paths =
   map (\p -> case size p of
                 Just n -> Tuple (filename p) n
-                Nothing -> Tuple "directory" 0
+                Nothing -> Tuple (filename p) 0
       ) paths
