@@ -161,16 +161,15 @@ maxSigned32BitInt = 2147483647
           
 largestSmallest :: Path -> Array (Tuple String Int)
 largestSmallest path =
-  [outlier (\i j -> i > j) 0 path, outlier (\i j -> i < j) maxSigned32BitInt path]
-
-outlier :: (Int -> Int -> Boolean) -> Int -> Path -> Tuple String Int
-outlier criteria startValue p =
-  foldl (\acc p' -> (case size p' of
-                                    Just n -> 
-                                      if criteria n $ snd acc then Tuple (filename p') n else acc
-                                    Nothing -> acc
-                    )
-        ) (Tuple "" startValue) (allFiles p) 
+  [outlier (\i j -> i > j) 0 path, outlier (\i j -> i < j) maxSigned32BitInt path] where
+    outlier :: (Int -> Int -> Boolean) -> Int -> Path -> Tuple String Int
+    outlier criteria startValue p =
+      foldl (\acc p' -> (case size p' of
+                          Just n -> 
+                            if criteria n $ snd acc then Tuple (filename p') n else acc
+                          Nothing -> acc
+                        )
+            ) (Tuple "" startValue) (allFiles p) 
 
 allSizes :: Array Path -> Array (Tuple String Int)
 allSizes paths =
