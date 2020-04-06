@@ -163,9 +163,9 @@ largestSmallest :: Path -> Array (Tuple String Int)
 largestSmallest path = largestSmallestPaths (allFiles path) where
   largestSmallestPaths :: Array Path -> Array (Tuple String Int)
   largestSmallestPaths paths =
-    [outlier paths (\i j -> i > j) 0, outlier paths (\i j -> i < j) maxSigned32BitInt] where
-      outlier :: Array Path -> (Int -> Int -> Boolean) -> Int -> Tuple String Int
-      outlier paths' criteria startValue =
+    [outlier (\i j -> i > j) 0 paths, outlier (\i j -> i < j) maxSigned32BitInt paths] where
+      outlier :: (Int -> Int -> Boolean) -> Int -> Array Path -> Tuple String Int
+      outlier criteria startValue paths' =
         foldl (\acc p' -> (case size p' of
                             Just n -> 
                               if criteria n $ snd acc then Tuple (filename p') n else acc
