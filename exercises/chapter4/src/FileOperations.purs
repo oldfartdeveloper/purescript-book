@@ -158,6 +158,12 @@ allSizes paths =
       ) paths
 
 whereIs :: String -> Maybe Path
-whereIs fileName =
-  Just root
+whereIs fileName = head $ whereIs' fileName root
+  where
+  whereIs' :: String -> Path -> Array Path
+  whereIs' fileName' path' = do
+    child <- ls path'
+    guard $ (filename child) == fileName'
+    pure path'
+
   
