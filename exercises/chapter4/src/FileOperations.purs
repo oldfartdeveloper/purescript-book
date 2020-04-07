@@ -6,7 +6,7 @@ import Data.Foldable (foldl)
 import Data.Int (rem, quot)
 -- import Data.Ord (min)
 -- import Data.Pair (Pair(..), fst, snd, (~))
-import Data.Path (Path(), filename, isDirectory, ls, size)
+import Data.Path (Path(), filename, isDirectory, ls, root, size)
 import Data.Array (concatMap, cons, filter, head, length, tail, (:), (..))
 import Data.Maybe (Maybe(..), fromMaybe, maybe)
 import Data.Tuple (Tuple(..), snd)
@@ -135,29 +135,6 @@ onlyFiles p =
 
 maxSigned32BitInt :: Int
 maxSigned32BitInt = 2147483647
-
--- largestSmallestIn :: Path -> Pair Path Path
--- largestSmallestIn p = lsi (onlyFiles p) (Pair maxSigned32BitInt -1)
---   where
---     lsi :: Array Path -> Pair Path Path -> Pair Path Path
---     lsi paths pair =
---       foldl (\p' pair' -> (fst pair') `min` p'.size ~ (snd pair') `max` p'.size) pair paths
-                  
--- largestSmallestIn :: Path -> Pair Path Path
--- largestSmallestIn p = lsi (onlyFiles p) (Pair maxSigned32BitInt -1)
---   where
---     lsi :: Array Path -> Pair Tuple(Path, Int) ~ Tuple(Path, Int) -> Pair (Int ~ Int) -> Pair Path Path
---     lsi paths ((lPath, lSize) ~ (rPath, rSize)) (existingMin ~ existingMax) =
---       let
---         sizeCompare :: Boolean -> Int -> Path -> Int -> Path -> Tuple Int Path 
---         sizeCompare isWantSmaller existingSize existingPath compareSize comparePath =
---         if isWantSmaller && existingSize > compareSize then
---           Tuple compareSize comparePath
---         else if existingSize < compareSize then
---           Tuple compareSize comparePath
---         else existingSize existingPath
---       in
---         foldl (\p' pair' -> sizeCompare false fst $ snd pair pair paths
           
 largestSmallest :: Path -> Array (Tuple String Int)
 largestSmallest path = largestSmallestPaths (allFiles path) where
@@ -179,3 +156,8 @@ allSizes paths =
                 Just n -> Tuple (filename p) n
                 Nothing -> Tuple (filename p) 0
       ) paths
+
+whereIs :: String -> Maybe Path
+whereIs fileName =
+  Just root
+  
