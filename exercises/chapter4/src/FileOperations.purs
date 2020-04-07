@@ -159,8 +159,8 @@ allSizes paths =
                 Nothing -> Tuple (filename p) 0
       ) paths
 
-whereIs :: String -> Array String
-whereIs fileName = whereIs' $ allFiles root
+whereIs :: String -> Maybe String
+whereIs fileName = head $ whereIs' $ allFiles root
     where
     whereIs' :: Array Path -> Array String
     whereIs' paths = do
