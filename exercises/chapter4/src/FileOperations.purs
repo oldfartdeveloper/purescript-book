@@ -2,13 +2,15 @@ module FileOperations where
 
 import Prelude
 
+import Data.String.Pattern (Pattern(..))
 import Data.Foldable (foldl)
 import Data.Int (rem, quot)
 -- import Data.Ord (min)
 -- import Data.Pair (Pair(..), fst, snd, (~))
 import Data.Path (Path(), filename, isDirectory, ls, root, size)
-import Data.Array (concatMap, cons, filter, head, length, tail, (:), (..))
+import Data.Array (concatMap, cons, filter, head, last, length, tail, (:), (..))
 import Data.Maybe (Maybe(..), fromMaybe, maybe)
+import Data.String.Common (split)
 import Data.Tuple (Tuple(..), snd)
 import Control.MonadZero (guard)
 
@@ -157,13 +159,12 @@ allSizes paths =
                 Nothing -> Tuple (filename p) 0
       ) paths
 
-whereIs :: String -> Maybe Path
-whereIs fileName = head $ whereIs' fileName root
-  where
-  whereIs' :: String -> Path -> Array Path
-  whereIs' fileName' path' = do
-    child <- ls path'
-    guard $ (filename child) == fileName'
-    pure path'
-
-  
+whereIs :: String -> Array String
+whereIs fileName = whereIs' $ allFiles root
+    where
+    whereIs' :: Array Path -> Array String
+    whereIs' paths = do
+      path <- paths
+      child <- ls path
+      guard $ eq fileName $ fromMaybe "" $ last $ split (Pattern "/") $ filename child
+      pure $ filename path
