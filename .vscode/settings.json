@@ -1,0 +1,11 @@
+{
+    "editor.tabSize": 2,
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "workbench.editor.closeOnFileDelete": true,
+    "workbench.editor.highlightModifiedTabs": true,
+    "purescript.addSpagoSources": true,
+    "purescript.addNpmPath": true,
+    "purescript.buildCommand": "spago build --purs-args --json-errors"
+}
