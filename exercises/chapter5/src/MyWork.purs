@@ -1,8 +1,8 @@
-module MyWork where
+module MyWork (fromSingleton) where
 
 import Prelude
 import Data.Int as Int
-import Data.Array (uncons)
+import Data.Array (length, uncons)
 import Data.Maybe (Maybe(..))
 
 -- gcd :: Int -> Int -> Int
@@ -56,13 +56,6 @@ livesInLA' :: { address :: { city :: String } } -> Boolean
 livesInLA' { address: { city: c } } = c == "Los Angeles"
 
 fromSingleton :: ∀ a. a -> Array a -> a
-fromSingleton default arr =
- case uncons arr of
-  Just { head: x, tail: xs } ->
-   case x of
-    Just x' ->
-     case xs of
-      Just xs' -> default
-      Nothing -> x'
-    Nothing -> default
+fromSingleton default arr = case uncons arr of
+  Just { head: x, tail: xs } -> if 0 == length xs then x else default
   Nothing -> default
