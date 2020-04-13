@@ -6,7 +6,7 @@ import Data.Hashable (hash)
 import Data.List (List(..), (:))
 import Effect (Effect)
 import Partial.Unsafe (unsafePartial)
-import Test.Solutions (Complex(..), Extended(..), Hour(..), Multiply(..), NonEmpty(..), OneMore(..), Self(..), act)
+import Test.Solutions (Complex(..), Extended(..), Hour(..), Multiply(..), NonEmpty(..), OneMore(..), Self(..), act, arrayHasDuplicates, unsafeMaximum)
 import Test.Unit (suite, test)
 import Test.Unit.Assert as Assert
 import Test.Unit.Main (runTest)
@@ -26,7 +26,6 @@ main =
           $ Assert.equal "1.0+2.0i"
           $ show
           $ Complex { real: 1.0, imaginary: 2.0 }
- {-  Move this block comment starting point to enable more tests
         test "Show Negative Complex"
           $ Assert.equal "1.0-2.0i"
           $ show
@@ -187,4 +186,3 @@ main =
           $ Assert.equal (hash $ Hour 1)
           $ hash
           $ Hour 14
--}
