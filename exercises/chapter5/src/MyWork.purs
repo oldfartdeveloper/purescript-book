@@ -1,9 +1,9 @@
-module MyWork (fromSingleton, exampleCircle) where
+module MyWork where
 
 import Prelude
 import Data.Int as Int
-import Data.Array (length, uncons)
-import Data.Maybe (Maybe(..))
+import Data.Array (head, length, uncons)
+import Data.Maybe (Maybe(..), fromMaybe)
 import Data.Picture (Shape(..), Point(..))
 -- import Data.Show (show) as Show
 
@@ -58,20 +58,19 @@ livesInLA' :: { address :: { city :: String } } -> Boolean
 livesInLA' { address: { city: c } } = c == "Los Angeles"
 
 fromSingleton :: ∀ a. a -> Array a -> a
-fromSingleton default arr = case uncons arr of
-  Just { head: x, tail: xs } -> if 0 == length xs then x else default
-  Nothing -> default
+fromSingleton def arr = case uncons arr of
+  Just { head: x, tail: xs } -> if 0 == length xs then x else def
+  Nothing -> def
 
--- Haven't been able to figure out how to apply array literal pattern here.
 fromSingleton' :: ∀ a. a -> Array a -> a
-fromSingleton' default arr
-  | _ [] = default
-  | _ arr = if 0 == length xs then x else default
+fromSingleton' def arr
+  | 1 == length arr = fromMaybe def $ head arr
+  | otherwise = def
 
 fromSingleton'' :: ∀ a. a -> Array a -> a
-fromSingleton'' default [] = default
+fromSingleton'' def [] = def
 fromSingleton'' _ [ x ] = x
-fromSingleton'' default _ = default
+fromSingleton'' def _ = def
 
 
 origin :: Point
