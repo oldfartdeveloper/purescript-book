@@ -63,10 +63,16 @@ fromSingleton default arr = case uncons arr of
   Nothing -> default
 
 -- Haven't been able to figure out how to apply array literal pattern here.
--- fromSingleton :: ∀ a. a -> Array a -> a
--- fromSingleton default arr
---   | _ [] = default
---   | _ arr = if 0 == length xs then x else default
+fromSingleton' :: ∀ a. a -> Array a -> a
+fromSingleton' default arr
+  | _ [] = default
+  | _ arr = if 0 == length xs then x else default
+
+fromSingleton'' :: ∀ a. a -> Array a -> a
+fromSingleton'' default [] = default
+fromSingleton'' _ [ x ] = x
+fromSingleton'' default _ = default
+
 
 origin :: Point
 origin = Point { x, y }
