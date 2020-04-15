@@ -103,4 +103,4 @@ doubleShape (Line start end) = Line origin (doubledPoint end)
 doubleShape (Text p text) = Text origin text
 
 showDoubleShape :: Shape -> String
-showDoubleShape shape = showShape shape
+showDoubleShape shape = showShape (doubleShape shape)
