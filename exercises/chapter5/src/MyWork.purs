@@ -104,3 +104,7 @@ doubleShape (Text p text) = Text origin text
 
 showDoubleShape :: Shape -> String
 showDoubleShape shape = showShape (doubleShape shape)
+
+extractText :: Shape -> Maybe String
+extractText (Text p text) = Just text
+extractText _ = Nothing
