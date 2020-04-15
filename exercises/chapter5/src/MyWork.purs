@@ -1,6 +1,7 @@
 module MyWork where
 
 import Prelude
+import Math (pi, pow)
 import Data.Int as Int
 import Data.Array (head, length, uncons)
 import Data.Maybe (Maybe(..), fromMaybe)
@@ -108,3 +109,9 @@ showDoubleShape shape = showShape (doubleShape shape)
 extractText :: Shape -> Maybe String
 extractText (Text p text) = Just text
 extractText _ = Nothing
+
+area :: Shape -> Number
+area (Circle c r) = pi * (r `pow` 2.0)
+area (Rectangle c w h) = w * h
+area (Line start end) = 0.0
+area (Text p text) = 0.0
