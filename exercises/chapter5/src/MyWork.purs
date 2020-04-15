@@ -4,8 +4,7 @@ import Prelude
 import Data.Int as Int
 import Data.Array (head, length, uncons)
 import Data.Maybe (Maybe(..), fromMaybe)
-import Data.Picture (Shape(..), Point(..))
--- import Data.Show (show) as Show
+import Data.Picture (Shape(..), Point(..), showPoint, showShape)
 
 -- gcd :: Int -> Int -> Int
 -- gcd n 0 = n
@@ -88,14 +87,20 @@ exampleCircle = Circle c r
     r :: Number
     r = 10.0
 
--- doubleShape :: Shape -> Shape
--- doubleShape (Circle c r) = Circle c (2.0 * r)
--- doubleShape (Rectangle c w h) = Rectangle c (2.0 * w) (2.0 * h)
--- doubleShape (Line start end) =
---   where
---     start :: Point
---     start = origin
+doubledPoint :: Point -> Point
+doubledPoint (Point { x, y }) = Point { x: (2.0 * x), y: (2.0 * y) }
 
---     end :: Point
---     end = Point { x: (2.0 * end.x), y: (2.0 * end.y) }
--- doubleShape (Text p text) = Text origin
+showOrigin :: String
+showOrigin = showPoint origin
+
+showExampleCircle :: String
+showExampleCircle = showShape exampleCircle
+
+doubleShape :: Shape -> Shape
+doubleShape (Circle c r) = Circle c (2.0 * r)
+doubleShape (Rectangle c w h) = Rectangle c (2.0 * w) (2.0 * h)
+doubleShape (Line start end) = Line origin (doubledPoint end)
+doubleShape (Text p text) = Text origin text
+
+showDoubleShape :: Shape -> String
+showDoubleShape shape = showShape shape

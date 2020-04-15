@@ -10,6 +10,7 @@ You can edit this file as you like.
   , "globals"
   , "integers"
   , "math"
+  , "prelude"
   , "psci-support"
   ]
 , packages = ./packages.dhall
