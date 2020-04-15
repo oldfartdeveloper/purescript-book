@@ -115,3 +115,10 @@ area (Circle c r) = pi * (r `pow` 2.0)
 area (Rectangle c w h) = w * h
 area (Line start end) = 0.0
 area (Text p text) = 0.0
+
+-- data Shape
+--   = Circle Point Number
+--   | Rectangle Point Number Number
+--   | Line Point Point
+--   | Text Point String
+--   | Clipped Picture Rectangle
