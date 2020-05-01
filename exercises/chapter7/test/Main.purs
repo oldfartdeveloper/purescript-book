@@ -1,7 +1,7 @@
 module Test.Main where
 
 import Prelude
-import Data.List (List(..), (:), (..))
+import Data.List (List(..), (:))
 import Data.Maybe (Maybe(..))
 import Effect (Effect)
 import Test.Solutions (combineMaybe, example)
@@ -83,21 +83,17 @@ main =
           $ Assert.assert "Manually compiled and manually verifed compiling failed"
           $ true
       suite "Write a function combineMaybe" do
-        test "Test Maybe of Maybe Int with Just"
-          $ Assert.equal (Just (Just 1))
-          $ combineMaybe (Just $ Just 1)
-        test "Test Maybe of Just with Nothing"
-          $ Assert.equal Nothing
-          $ combineMaybe (Just (Nothing :: Maybe Int))
-        test "Test Nothing"
-          $ Assert.equal (pure Nothing)
-          $ combineMaybe (Nothing :: Maybe (Maybe Int))
-        test "Test List of Maybe Int with Just"
-          $ Assert.equal (Just 1 : Just 2 : Just 3 : Nil)
-          $ combineMaybe (Just $ 1 .. 3)
-        test "Test List of Maybe Int with Nothing"
-          $ Assert.equal (Nothing : Nil)
-          $ combineMaybe (Nothing :: Maybe (List Int))
-        test "Test List of Maybe Int with mix of Just and Nothing"
-          $ Assert.equal (Just (Just 1) : Just Nothing : Just (Just 3) : Nil)
-          $ combineMaybe (Just $ Just 1 : Nothing : Just 3 : Nil)
+        suite "Applicative Array Int" do
+          test "Just"
+            $ Assert.equal ([ Just 1, Just 2, Just 3 ])
+            $ combineMaybe (Just $ [ 1, 2, 3 ])
+          test "Nothing"
+            $ Assert.equal ([ Nothing ])
+            $ combineMaybe (Nothing :: Maybe (Array Int))
+        suite "Applicative List Char" do
+          test "Just"
+            $ Assert.equal (Just 'a' : Just 'b' : Just 'c' : Nil)
+            $ combineMaybe (Just $ 'a' : 'b' : 'c' : Nil)
+          test "Nothing"
+            $ Assert.equal (Nothing : Nil)
+            $ combineMaybe (Nothing :: Maybe (List Char))
