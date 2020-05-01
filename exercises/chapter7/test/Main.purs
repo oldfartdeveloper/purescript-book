@@ -89,6 +89,9 @@ main =
         test "Test List of Maybe Int with Nothing"
           $ Assert.equal (Nothing : Nil)
           $ combineMaybe (Nothing :: Maybe (List Int))
+        test "Test List of Maybe Int with Nothing (showing use of 'pure')"
+          $ Assert.equal (pure Nothing)
+          $ combineMaybe (Nothing :: Maybe (List Int))
         test "Test Array of Maybe Int with Just"
           $ Assert.equal [ (Just 1), (Just 2), (Just 3) ]
           $ combineMaybe (Just [ 1, 2, 3 ])
