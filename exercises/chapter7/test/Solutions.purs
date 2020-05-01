@@ -21,6 +21,6 @@ lift3 ::
 lift3 f x y z = f <$> x <*> y <*> z
 
 combineMaybe :: ∀ a f. Applicative f => Maybe (f a) -> f (Maybe a)
-combineMaybe (Just x) = Just <$> x
+combineMaybe (Just x) = map Just x
 
 combineMaybe _ = pure Nothing
