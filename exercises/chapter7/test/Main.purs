@@ -3,6 +3,11 @@ module Test.Main where
 import Prelude
 -- import Test.Solutions
 import Test.WorkFile
+  ( addMaybe
+  , subMaybe
+  , mulMaybe
+  , divMaybe
+  )
 -- import Control.Monad.Writer (runWriter, tell)
 -- import Data.AddressBook (PhoneType(..), address, phoneNumber)
 -- import Data.Array ((..))
@@ -36,8 +41,6 @@ main =
           test "Nothing on right" do
             Assert.equal Nothing
               $ addMaybe (Just 5) Nothing
-
-{-  Move this block comment starting point to enable more tests
         test "subMaybe" do
           Assert.equal (Just 3)
             $ subMaybe (Just 5) (Just 2)
@@ -47,6 +50,8 @@ main =
         test "divMaybe" do
           Assert.equal (Just 2)
             $ divMaybe (Just 5) (Just 2)
+
+{-  Move this block comment starting point to enable more tests
       suite "Exercise - Numeric operators that work with Apply" do
         suite "addApply" do
           test "Maybe Just" do
