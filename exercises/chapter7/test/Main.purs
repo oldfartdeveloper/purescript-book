@@ -50,8 +50,6 @@ main =
         test "divMaybe" do
           Assert.equal (Just 2)
             $ divMaybe (Just 5) (Just 2)
-
-{-  Move this block comment starting point to enable more tests
       suite "Exercise - Numeric operators that work with Apply" do
         suite "addApply" do
           test "Maybe Just" do
@@ -66,6 +64,8 @@ main =
           test "Either Left" do
             Assert.equal (Left "fail" :: Either String Int)
               $ addApply (Right 5) (Left "fail")
+
+{-  Move this block comment starting point to enable more tests
         suite "subApply" do
           test "Maybe" do
             Assert.equal (Just 3)

@@ -15,7 +15,7 @@ import Prelude
 --   , validatePhoneNumber
 --   )
 -- import Data.Either (Either(..))
-import Data.Maybe (Maybe)
+import Data.Maybe (Maybe, applyMaybe)
 
 -- import Data.Traversable (traverse)
 -- import Data.Validation.Semigroup (V)
@@ -35,6 +35,9 @@ mulMaybe i j = (*) <$> i <*> j
 
 divMaybe :: Maybe Int -> Maybe Int -> Maybe Int
 divMaybe i j = (/) <$> i <*> j
+
+addApply :: ∀ a b c f. Apply f => (a -> b -> c) -> f a -> f b -> f c
+addApply i j = (+) <$> i <*> j
 
 -- lift3 ::
 --   forall a b c d f.
