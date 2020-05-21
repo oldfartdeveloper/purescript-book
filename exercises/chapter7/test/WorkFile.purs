@@ -1,6 +1,7 @@
 module Test.WorkFile where
 
 import Prelude
+import Control.Apply (lift2)
 -- import Data.AddressBook
 --   ( Address
 --   , PhoneNumber
@@ -15,7 +16,7 @@ import Prelude
 --   , validatePhoneNumber
 --   )
 -- import Data.Either (Either(..))
-import Data.Maybe (Maybe, applyMaybe)
+import Data.Maybe (Maybe)
 
 -- import Data.Traversable (traverse)
 -- import Data.Validation.Semigroup (V)
@@ -24,20 +25,29 @@ import Data.Maybe (Maybe, applyMaybe)
 -- import Effect (Effect)
 -- import Effect.Console (logShow)
 -- import Partial.Unsafe (unsafePartial)
-addMaybe :: Maybe Int -> Maybe Int -> Maybe Int
-addMaybe i j = (+) <$> i <*> j
+addMaybe :: ∀ a. Semiring a => Maybe a -> Maybe a -> Maybe a
+addMaybe = lift2 add
 
-subMaybe :: Maybe Int -> Maybe Int -> Maybe Int
-subMaybe i j = (-) <$> i <*> j
+subMaybe :: ∀ a. Ring a => Maybe a -> Maybe a -> Maybe a
+subMaybe = lift2 sub
 
-mulMaybe :: Maybe Int -> Maybe Int -> Maybe Int
-mulMaybe i j = (*) <$> i <*> j
+mulMaybe :: ∀ a. Semiring a => Maybe a -> Maybe a -> Maybe a
+mulMaybe = lift2 mul
 
-divMaybe :: Maybe Int -> Maybe Int -> Maybe Int
-divMaybe i j = (/) <$> i <*> j
+divMaybe :: ∀ a. EuclideanRing a => Maybe a -> Maybe a -> Maybe a
+divMaybe = lift2 div
 
-addApply :: ∀ a b c f. Apply f => (a -> b -> c) -> f a -> f b -> f c
-addApply i j = (+) <$> i <*> j
+addApply :: ∀ f a. Apply f => Semiring a => f a -> f a -> f a
+addApply = lift2 add
+
+subApply :: ∀ f a. Apply f => Ring a => f a -> f a -> f a
+subApply = lift2 sub
+
+mulApply :: ∀ f a. Apply f => Semiring a => f a -> f a -> f a
+mulApply = lift2 mul
+
+divApply :: ∀ f a. Apply f => EuclideanRing a => f a -> f a -> f a
+divApply = lift2 div
 
 -- lift3 ::
 --   forall a b c d f.

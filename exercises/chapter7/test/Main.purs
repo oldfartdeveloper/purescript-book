@@ -7,11 +7,15 @@ import Test.WorkFile
   , subMaybe
   , mulMaybe
   , divMaybe
+  , addApply
+  , subApply
+  , mulApply
+  , divApply
   )
 -- import Control.Monad.Writer (runWriter, tell)
 -- import Data.AddressBook (PhoneType(..), address, phoneNumber)
 -- import Data.Array ((..))
--- import Data.Either (Either(..))
+import Data.Either (Either(..))
 -- import Data.Int (fromNumber)
 -- import Data.List (List(..), (:))
 import Data.Maybe (Maybe(..))
@@ -64,8 +68,6 @@ main =
           test "Either Left" do
             Assert.equal (Left "fail" :: Either String Int)
               $ addApply (Right 5) (Left "fail")
-
-{-  Move this block comment starting point to enable more tests
         suite "subApply" do
           test "Maybe" do
             Assert.equal (Just 3)
@@ -87,6 +89,8 @@ main =
           test "Either" do
             Assert.equal (Right 2 :: Either String Int)
               $ divApply (Right 5) (Right 2)
+
+{-  Move this block comment starting point to enable more tests
       suite "Exercise - combineMaybe" do
         suite "Array Int" do
           test "Just" do
