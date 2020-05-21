@@ -11,13 +11,17 @@ import Test.WorkFile
   , subApply
   , mulApply
   , divApply
+  , combineMaybe
   )
 -- import Control.Monad.Writer (runWriter, tell)
 -- import Data.AddressBook (PhoneType(..), address, phoneNumber)
 -- import Data.Array ((..))
 import Data.Either (Either(..))
 -- import Data.Int (fromNumber)
--- import Data.List (List(..), (:))
+import Data.List
+  ( List(..)
+  , (:)
+  )
 import Data.Maybe (Maybe(..))
 -- import Data.String.Regex as R
 -- import Data.Traversable (traverse)
@@ -89,8 +93,6 @@ main =
           test "Either" do
             Assert.equal (Right 2 :: Either String Int)
               $ divApply (Right 5) (Right 2)
-
-{-  Move this block comment starting point to enable more tests
       suite "Exercise - combineMaybe" do
         suite "Array Int" do
           test "Just" do
@@ -106,6 +108,8 @@ main =
           test "Nothing"
             $ Assert.equal (Nothing : Nil)
             $ combineMaybe (Nothing :: Maybe (List Char))
+
+{-  Move this block comment starting point to enable more tests
     suite "Exercise Group 2" do
       suite "Exercise - stateRegex" do
         let

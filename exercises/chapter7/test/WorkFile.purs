@@ -16,7 +16,7 @@ import Control.Apply (lift2)
 --   , validatePhoneNumber
 --   )
 -- import Data.Either (Either(..))
-import Data.Maybe (Maybe)
+import Data.Maybe (Maybe(..))
 
 -- import Data.Traversable (traverse)
 -- import Data.Validation.Semigroup (V)
@@ -58,9 +58,11 @@ divApply = lift2 div
 --   f c ->
 --   f d
 -- lift3 f x y z = f <$> x <*> y <*> z
--- combineMaybe :: ∀ a f. Applicative f => Maybe (f a) -> f (Maybe a)
--- combineMaybe (Just x) = map Just x
--- combineMaybe _ = pure Nothing
+combineMaybe :: ∀ a f. Applicative f => Maybe (f a) -> f (Maybe a)
+combineMaybe (Just x) = map Just x
+
+combineMaybe _ = pure Nothing
+
 -- {-| Exercise Group 2 -}
 -- validateAddressRegex :: Address -> V Errors Address
 -- validateAddressRegex a =
