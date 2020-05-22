@@ -49,15 +49,6 @@ mulApply = lift2 mul
 divApply :: ∀ f a. Apply f => EuclideanRing a => f a -> f a -> f a
 divApply = lift2 div
 
--- lift3 ::
---   forall a b c d f.
---   Apply f =>
---   (a -> b -> c -> d) ->
---   f a ->
---   f b ->
---   f c ->
---   f d
--- lift3 f x y z = f <$> x <*> y <*> z
 combineMaybe :: ∀ a f. Applicative f => Maybe (f a) -> f (Maybe a)
 combineMaybe (Just x) = map Just x
 
