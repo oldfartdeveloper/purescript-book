@@ -15,16 +15,16 @@ import Control.Apply (lift2)
 --   , validateAddress
 --   , validatePhoneNumber
 --   )
--- import Data.Either (Either(..))
+import Data.Either (Either(..))
 import Data.Maybe (Maybe(..))
-
 -- import Data.Traversable (traverse)
 -- import Data.Validation.Semigroup (V)
--- import Data.String.Regex (Regex(), regex)
--- import Data.String.Regex.Flags (noFlags)
--- import Effect (Effect)
+import Data.String.Regex (Regex(), regex)
+import Data.String.Regex.Flags (noFlags)
+import Effect (Effect)
 -- import Effect.Console (logShow)
--- import Partial.Unsafe (unsafePartial)
+import Partial.Unsafe (unsafePartial)
+
 addMaybe :: ∀ a. Semiring a => Maybe a -> Maybe a -> Maybe a
 addMaybe = lift2 add
 
@@ -54,16 +54,17 @@ combineMaybe (Just x) = map Just x
 
 combineMaybe _ = pure Nothing
 
--- {-| Exercise Group 2 -}
+{-| Exercise Group 2 -}
 -- validateAddressRegex :: Address -> V Errors Address
 -- validateAddressRegex a =
 --   address <$> (nonEmpty "Street" a.street *> pure a.street)
 --     <*> (nonEmpty "City" a.city *> pure a.city)
 --     <*> (matches "State" stateAbbreviationRegex a.state *> pure a.state)
--- stateAbbreviationRegex :: Regex
--- stateAbbreviationRegex =
---   unsafePartial case regex "^[A-Z]{2}$" noFlags of
---     Right r -> r
+stateRegex :: Regex
+stateRegex =
+  unsafePartial case regex "^[A-Z]{2}$" noFlags of
+    Right r -> r
+
 -- validateAddressRegex' :: Address -> V Errors Address
 -- validateAddressRegex' a =
 --   address <$> (nonEmpty "Street" a.street *> pure a.street)

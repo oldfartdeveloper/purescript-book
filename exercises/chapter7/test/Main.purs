@@ -1,14 +1,31 @@
 module Test.Main where
 
 import Prelude
+import Data.Either (Either(..))
+import Data.List (List(..), (:))
+import Data.Maybe (Maybe(..))
+import Effect (Effect)
+import Test.Unit (suite, test)
+import Test.Unit.Assert as Assert
+import Test.Unit.Main (runTest)
+import Test.WorkFile
+  ( addApply
+  , addMaybe
+  , combineMaybe
+  , divApply
+  , divMaybe
+  , mulApply
+  , mulMaybe
+  , stateRegex
+  , subApply
+  , subMaybe
+  )
 
 main :: Effect Unit
 main =
   runTest do
     test "Dummy test" do
       Assert.equal true true
-
-{-  Move this block comment starting point to enable more tests
     suite "Exercise Group 1" do
       suite "Exercise - Numeric operators that work with Maybe" do
         suite "addMaybe" do
@@ -86,12 +103,14 @@ main =
           stateTest str exp =
             test (show str) do
               Assert.equal exp
-                $ R.test stateRegex str
+                $ test stateRegex str
         stateTest "CA" true
         stateTest "Ca" true
         stateTest "C" false
         stateTest "CAA" false
         stateTest "C3" false
+
+{-  Move this block comment starting point to enable more tests
       suite "Exercise - nonEmptyRegex" do
         let
           nonEmptyTest str exp =
