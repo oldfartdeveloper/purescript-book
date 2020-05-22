@@ -2,26 +2,26 @@ module Test.WorkFile where
 
 import Prelude
 import Control.Apply (lift2)
--- import Data.AddressBook
---   ( Address
---   , PhoneNumber
---   , address
---   )
--- import Data.AddressBook.Validation
---   ( Errors
---   , arrayNonEmpty
---   , matches
---   , nonEmpty
---   , validateAddress
---   , validatePhoneNumber
---   )
+import Data.AddressBook
+  ( Address
+  -- , PhoneNumber
+  , address
+  )
+import Data.AddressBook.Validation
+  ( Errors
+  -- , arrayNonEmpty
+  , matches
+  -- , nonEmpty
+  -- , validateAddress
+  -- , validatePhoneNumber
+  )
 import Data.Either (Either(..))
 import Data.Maybe (Maybe(..))
 -- import Data.Traversable (traverse)
--- import Data.Validation.Semigroup (V)
-import Data.String.Regex (Regex(), regex)
+import Data.Validation.Semigroup (V)
+import Data.String.Regex (Regex, regex)
 import Data.String.Regex.Flags (noFlags)
-import Effect (Effect)
+-- import Effect (Effect)
 -- import Effect.Console (logShow)
 import Partial.Unsafe (unsafePartial)
 
@@ -62,18 +62,20 @@ combineMaybe _ = pure Nothing
 --     <*> (matches "State" stateAbbreviationRegex a.state *> pure a.state)
 stateRegex :: Regex
 stateRegex =
-  unsafePartial case regex "^[A-Z]{2}$" noFlags of
+  unsafePartial case regex "^[a-zA-Z]{2}$" noFlags of
     Right r -> r
 
--- validateAddressRegex' :: Address -> V Errors Address
--- validateAddressRegex' a =
---   address <$> (nonEmpty "Street" a.street *> pure a.street)
---     <*> (matches "City" notOnlyWhitespaceRegex a.city *> pure a.city)
---     <*> (matches "State" stateAbbreviationRegex a.state *> pure a.state)
--- notOnlyWhitespaceRegex :: Regex
--- notOnlyWhitespaceRegex =
---   unsafePartial case regex "[0-9A-Za-z]" noFlags of
---     Right r -> r
+validateAddressImproved :: Address -> V Errors Address
+validateAddressImproved a =
+  address <$> (matches "Street" nonEmptyRegex a.street *> pure a.street)
+    <*> (matches "City" nonEmptyRegex a.city *> pure a.city)
+    <*> (matches "State" stateRegex a.state *> pure a.state)
+
+nonEmptyRegex :: Regex
+nonEmptyRegex =
+  unsafePartial case regex "\\S" noFlags of
+    Right r -> r
+
 -- {-| Exercise Group 3 -}
 -- {-| Exercise 1: Write a Traversable instance for a binary tree data structure.
 -- Acknowledgeent: this solution presented by hrk at

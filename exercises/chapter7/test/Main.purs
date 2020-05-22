@@ -1,9 +1,13 @@
 module Test.Main where
 
 import Prelude
+import Data.AddressBook (address)
+-- import Data.AddressBook.Validation
 import Data.Either (Either(..))
 import Data.List (List(..), (:))
 import Data.Maybe (Maybe(..))
+import Data.String.Regex as R
+import Data.Validation.Semigroup (invalid)
 import Effect (Effect)
 import Test.Unit (suite, test)
 import Test.Unit.Assert as Assert
@@ -16,9 +20,11 @@ import Test.WorkFile
   , divMaybe
   , mulApply
   , mulMaybe
+  , nonEmptyRegex
   , stateRegex
   , subApply
   , subMaybe
+  , validateAddressImproved
   )
 
 main :: Effect Unit
@@ -103,14 +109,12 @@ main =
           stateTest str exp =
             test (show str) do
               Assert.equal exp
-                $ test stateRegex str
+                $ R.test stateRegex str
         stateTest "CA" true
         stateTest "Ca" true
         stateTest "C" false
         stateTest "CAA" false
         stateTest "C3" false
-
-{-  Move this block comment starting point to enable more tests
       suite "Exercise - nonEmptyRegex" do
         let
           nonEmptyTest str exp =
@@ -141,6 +145,8 @@ main =
           Assert.equal (invalid [ "Field 'State' did not match the required format" ])
             $ validateAddressImproved
             $ address "22 Fake St" "Fake City" "C3"
+
+{-  Move this block comment starting point to enable more tests
     suite "Exercise Group 3" do
       suite "Exercise - Tree Show and Eq" do
         let
