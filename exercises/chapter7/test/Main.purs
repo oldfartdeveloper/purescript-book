@@ -1,42 +1,14 @@
 module Test.Main where
 
 import Prelude
--- import Test.Solutions
-import Test.WorkFile
-  ( addMaybe
-  , subMaybe
-  , mulMaybe
-  , divMaybe
-  , addApply
-  , subApply
-  , mulApply
-  , divApply
-  , combineMaybe
-  )
--- import Control.Monad.Writer (runWriter, tell)
--- import Data.AddressBook (PhoneType(..), address, phoneNumber)
--- import Data.Array ((..))
-import Data.Either (Either(..))
--- import Data.Int (fromNumber)
-import Data.List
-  ( List(..)
-  , (:)
-  )
-import Data.Maybe (Maybe(..))
--- import Data.String.Regex as R
--- import Data.Traversable (traverse)
--- import Data.Tuple (snd)
--- import Data.Validation.Semigroup (invalid)
-import Effect (Effect)
-import Test.Unit (suite, test)
-import Test.Unit.Assert as Assert
-import Test.Unit.Main (runTest)
 
 main :: Effect Unit
 main =
   runTest do
     test "Dummy test" do
       Assert.equal true true
+
+{-  Move this block comment starting point to enable more tests
     suite "Exercise Group 1" do
       suite "Exercise - Numeric operators that work with Maybe" do
         suite "addMaybe" do
@@ -108,8 +80,6 @@ main =
           test "Nothing"
             $ Assert.equal (Nothing : Nil)
             $ combineMaybe (Nothing :: Maybe (List Char))
-
-{-  Move this block comment starting point to enable more tests
     suite "Exercise Group 2" do
       suite "Exercise - stateRegex" do
         let
