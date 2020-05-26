@@ -275,7 +275,9 @@ safeDivide a b = Just (a / b)
 Then we can use `foldM` to express iterated safe division:
 
 ```text
-> import Data.List
+> import Test.Examples
+> import Data.List (fromFoldable)
+> import Data.Maybe (Maybe(..))
 
 > foldM safeDivide 100 (fromFoldable [5, 2, 2])
 (Just 5)

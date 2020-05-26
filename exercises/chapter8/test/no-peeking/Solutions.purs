@@ -1,4 +1,4 @@
-module Test.Solutions where
+module Official.Solutions where
 
 import Prelude
 import Data.List (List(..), concatMap, (:))
@@ -16,8 +16,3 @@ instance bindList :: Bind List where
 instance bindMaybe :: Bind Maybe where
   bind Nothing _ = Nothing
   bind (Just a) f = f a
-
-safeDivide :: Int -> Int -> Maybe Int
-safeDivide _ 0 = Nothing
-
-safeDivide a b = Just (a / b)
