@@ -6,9 +6,7 @@ If you enjoyed the book or found it useful, please consider buying a copy of [th
 
 ## Status
 
-This book is being continuously updated as the language evolves, so please report any issues you notice with the material. The following chapters are still being updated for purescript 0.13:
-
-- Chapter 12
+This book is being continuously updated as the language evolves, so please report any issues you notice with the material.
 
 Unit tests are also being added for the exercises in each chapter. See [#79](https://github.com/purescript-contrib/purescript-book/issues/79) for the latest status on tests.
 
@@ -29,12 +27,14 @@ Each chapter will be motivated by a particular problem, and in the course of sol
 - Domain specific language implementation
 - Working with the DOM
 - JavaScript interoperability
-- Dealing with callback hell
+- Parallel asynchronous execution
 
 ## License
 
 Copyright (c) 2014-2017 Phil Freeman.
 
 The text of this book is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License: <https://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_US>.
+
+Some text is derived from the [PureScript Documentation Repo](https://github.com/purescript/documentation), which uses the same license, and is copyright [various contributors](https://github.com/purescript/documentation/blob/master/CONTRIBUTORS.md).
 
 The exercises are licensed under the MIT license.

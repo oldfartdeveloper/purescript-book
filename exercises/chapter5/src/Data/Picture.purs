@@ -31,6 +31,15 @@ showShape (Line start end) =
 showShape (Text loc text) =
   "Text [location: " <> showPoint loc <> ", text: " <> show text <> "]"
 
+origin :: Point
+origin = Point { x: 0.0, y: 0.0 }
+
+getCenter :: Shape -> Point
+getCenter (Circle c r) = c
+getCenter (Rectangle c w h) = c
+getCenter (Line (Point s) (Point e)) = Point { x: s.x - e.x, y: s.y - e.y }
+getCenter (Text loc text) = loc
+
 type Picture = Array Shape
 
 showPicture :: Picture -> Array String
@@ -114,3 +123,23 @@ bounds = foldl combine emptyBounds
   where
   combine :: Bounds -> Shape -> Bounds
   combine b shape = union (shapeBounds shape) b
+
+{-
+These `instance`s are to enable testing.
+Feel free to ignore these.
+They'll make more sense in the next chapter.
+-}
+derive instance boundsEq :: Eq Bounds
+
+instance boundsShow :: Show Bounds where
+  show b = showBounds b
+
+derive instance pointEq :: Eq Point
+
+instance pointShow :: Show Point where
+  show p = showPoint p
+
+derive instance shapeEq :: Eq Shape
+
+instance shapeShow :: Show Shape where
+  show shape = showShape shape

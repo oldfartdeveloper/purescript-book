@@ -502,7 +502,7 @@ forall a. List a -> Maybe a
 
 Let's pick apart these two types to understand their meaning.
 
-`filter` is a curried function of two arguments. Its first argument is a function, which takes a list element and returns a `Boolean` value as a result. Its second argument is a list of elements, and the return value is another list.
+`filter` is a curried function of two arguments. Its first argument is a function, which takes an element of the list and returns a `Boolean` value as a result. Its second argument is a list of elements, and the return value is another list.
 
 `head` takes a list as its argument, and returns a type we haven't seen before: `Maybe a`. `Maybe a` represents an optional value of type `a`, and provides a type-safe alternative to using `null` to indicate a missing value in languages like JavaScript. We will see it again in more detail in later chapters.
 
@@ -610,10 +610,10 @@ I will let you make your own decision which definition is easier to understand, 
 
 ## Exercises
 
- 1. (Easy) Test your understanding of the `findEntry` function by writing down the types of each of its major subexpressions. For example, the type of the `head` function as used is specialized to `AddressBook -> Maybe Entry`.
- 1. (Medium) Write a function which looks up an `Entry` given a street address, by reusing the existing code in `findEntry`. Test your function in PSCi.
- 1. (Medium) Write a function which tests whether a name appears in a `AddressBook`, returning a Boolean value. _Hint_: Use PSCi to find the type of the `Data.List.null` function, which test whether a list is empty or not.
- 1. (Difficult) Write a function `removeDuplicates` which removes duplicate address book entries with the same first and last names. _Hint_: Use PSCi to find the type of the `Data.List.nubBy` function, which removes duplicate elements from a list based on an equality predicate.
+ 1. (Easy) Test your understanding of the `findEntry` function by writing down the types of each of its major subexpressions. For example, the type of the `head` function as used is specialized to `AddressBook -> Maybe Entry`. _Note_: There is no test for this exercise.
+ 1. (Medium) Write a function `findEntryByStreet :: String -> AddressBook -> Maybe Entry` which looks up an `Entry` given a street address. _Hint_ reusing the existing code in `findEntry`. Test your function in PSCi and by running `spago test`.
+ 1. (Medium) Write a function `isInBook` which tests whether a name appears in a `AddressBook`, returning a Boolean value. _Hint_: Use PSCi to find the type of the `Data.List.null` function, which tests whether a list is empty or not.
+ 1. (Difficult) Write a function `removeDuplicates` which removes "duplicate" address book entries. We'll consider entries duplicated if they share the same first and last names, while ignoring `address` fields. _Hint_: Use PSCi to find the type of the `Data.List.nubBy` function, which removes duplicate elements from a list based on an equality predicate. Note that the first element in each set of duplicates (closest to list head) is the one that is kept.
 
 ## Conclusion
 

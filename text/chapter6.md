@@ -634,7 +634,7 @@ Another reason to define a superclass relationship is in the case where there is
 
  ## Exercises
 
- 1. (Medium) Define a partial function which finds the maximum of a non-empty array of integers. Your function should have type `Partial => Array Int -> Int`. Test out your function in PSCi using `unsafePartial`. _Hint_: Use the `maximum` function from `Data.Foldable`.
+ 1. (Medium) Define a partial function `unsafeMaximum :: Partial => Array Int -> Int` which finds the maximum of a non-empty array of integers. Test out your function in PSCi using `unsafePartial`. _Hint_: Use the `maximum` function from `Data.Foldable`.
  1. (Medium) The `Action` class is a multi-parameter type class which defines an action of one type on another:
 
      ```haskell
@@ -675,7 +675,7 @@ Another reason to define a superclass relationship is in the case where there is
      ```haskell
      newtype Self m = Self m
      ```
- 1. (Difficult) Should the arguments of the multi-parameter type class `Action` be related by some functional dependency? Why or why not?
+ 1. (Difficult) Should the arguments of the multi-parameter type class `Action` be related by some functional dependency? Why or why not? _Note_: There is no test for this exercise.
 
 ## A Type Class for Hashes
 
@@ -763,14 +763,14 @@ instance hashString :: Hashable String where
 
 How can we prove that these `Hashable` instances satisfy the type class law that we stated above? We need to make sure that equal values have equal hash codes. In cases like `Int`, `Char`, `String` and `Boolean`, this is simple because there are no values of those types which are equal in the sense of `Eq` but not equal identically.
 
-What about some more interesting types? To prove the type class law for the `Array` instance, we can use induction on the length of the array. The only array with length zero is `[]`. Any two non-empty arrays are equal only if they have equals head elements and equal tails, by the definition of `Eq` on arrays. By the inductive hypothesis, the tails have equal hashes, and we know that the head elements have equal hashes if the `Hashable a` instance must satisfy the law. Therefore, the two arrays have equal hashes, and so the `Hashable (Array a)` obeys the type class law as well.
+What about some more interesting types? To prove the type class law for the `Array` instance, we can use induction on the length of the array. The only array with length zero is `[]`. Any two non-empty arrays are equal only if they have equal head elements and equal tails, by the definition of `Eq` on arrays. By the inductive hypothesis, the tails have equal hashes, and we know that the head elements have equal hashes if the `Hashable a` instance must satisfy the law. Therefore, the two arrays have equal hashes, and so the `Hashable (Array a)` obeys the type class law as well.
 
 The source code for this chapter includes several other examples of `Hashable` instances, such as instances for the `Maybe` and `Tuple` type.
 
  ## Exercises
 
- 1. (Easy) Use PSCi to test the hash functions for each of the defined instances.
- 1. (Medium) Use the `hashEqual` function to write a function which tests if an array has any duplicate elements, using hash-equality as an approximation to value equality. Remember to check for value equality using `==` if a duplicate pair is found. _Hint_: the `nubByEq` function in `Data.Array` should make this task much simpler.
+ 1. (Easy) Use PSCi to test the hash functions for each of the defined instances. _Note_: There is no provided unit test for this exercise.
+ 1. (Medium) Write a function `arrayHasDuplicates` which tests if an array has any duplicate elements. Use hash-equality from the `hashEqual` function as an approximation to value equality. Remember to check for value equality using `==` if a duplicate pair is found. _Hint_: the `nubByEq` function in `Data.Array` should make this task much simpler.
  1. (Medium) Write a `Hashable` instance for the following newtype which satisfies the type class law:
 
      ```haskell
@@ -781,7 +781,7 @@ The source code for this chapter includes several other examples of `Hashable` i
      ```
 
      The newtype `Hour` and its `Eq` instance represent the type of integers modulo 12, so that 1 and 13 are identified as equal, for example. Prove that the type class law holds for your instance.
- 1. (Difficult) Prove the type class laws for the `Hashable` instances for `Maybe`, `Either` and `Tuple`.
+ 1. (Difficult) Prove the type class laws for the `Hashable` instances for `Maybe`, `Either` and `Tuple`. _Note_: There is no test for this exercise.
 
 ## Conclusion
 
